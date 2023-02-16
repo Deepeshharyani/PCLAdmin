@@ -131,6 +131,7 @@ class AddViewController: UIViewController {
         return mainStack
     }()
     
+    let mainView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,10 +153,14 @@ class AddViewController: UIViewController {
         mainStackView.addArrangedSubview(customerTableView)
         mainStackView.addArrangedSubview(addCancelStackView)
         
-        self.view.addSubview(mainStackView)
-        self.view.backgroundColor = .white
+        mainView.backgroundColor = .white
+        view.backgroundColor = .clear
+        self.mainView.addSubview(mainStackView)
+        self.view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = self.mainView.safeAreaLayoutGuide
+        
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         driverNameButton.addTarget(self, action: #selector(driverNameTapped), for: .touchUpInside)
         vehicleNumberPlateButton.addTarget(self, action: #selector(vehicleNameTapped), for: .touchUpInside)
@@ -173,7 +178,11 @@ class AddViewController: UIViewController {
              driverNameVehicleNoStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
              driverNameVehicleNoStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
              addCancelStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-             addCancelStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+             addCancelStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+             mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+             mainView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+             mainView.heightAnchor.constraint(equalToConstant: 500),
+             mainView.widthAnchor.constraint(equalToConstant: 500)
             ])
        
     }

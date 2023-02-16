@@ -22,6 +22,7 @@ class UpdateCustomerViewController: UIViewController {
         updateCustomer.text = "Update Customer"
         updateCustomer.textAlignment = .center
         updateCustomer.textColor = UIColor(named: "Maroon")
+        updateCustomer.font = .preferredFont(forTextStyle: .largeTitle)
         return updateCustomer
     }()
     
@@ -140,6 +141,9 @@ class UpdateCustomerViewController: UIViewController {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         return mainStack
     }()
+    
+    let mainView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -156,17 +160,21 @@ class UpdateCustomerViewController: UIViewController {
         resetCancelStackView.addArrangedSubview(cancelButton)
         mainStackView.addArrangedSubview(resetCancelStackView)
         mainStackView.addArrangedSubview(updateButton)
-        self.view.addSubview(mainStackView)
-        view.backgroundColor = .white
+        mainView.backgroundColor = .white
+        view.backgroundColor = .clear
+        self.mainView.addSubview(mainStackView)
+        self.view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        
         updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = self.mainView.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate(
             [mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,constant: -150),
+             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
              mainStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
              mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15),
              cityStateZipStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
@@ -174,7 +182,11 @@ class UpdateCustomerViewController: UIViewController {
              resetCancelStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
              resetCancelStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
              updateButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-             updateButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+             updateButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+             mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+             mainView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+             mainView.heightAnchor.constraint(equalToConstant: 500),
+             mainView.widthAnchor.constraint(equalToConstant: 500)
             ])
     }
     

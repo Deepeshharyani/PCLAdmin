@@ -20,13 +20,13 @@ class UpdateVehicleViewController: UIViewController {
         updateVehicle.text = "Update Vehicle"
         updateVehicle.textAlignment = .center
         updateVehicle.textColor = UIColor(named: "Maroon")
+        updateVehicle.font = .preferredFont(forTextStyle: .largeTitle)
         return updateVehicle
     }()
     
     lazy var updateNumberPlateTextField: UITextField = {
         var firstName = UITextField()
         firstName.textAlignment = .center
-        
         firstName.borderStyle = UITextField.BorderStyle.roundedRect
         return firstName
     }()
@@ -87,11 +87,13 @@ class UpdateVehicleViewController: UIViewController {
         var mainStack = UIStackView()
         mainStack.axis = .vertical
         mainStack.alignment = .fill
-        mainStack.distribution = .fillEqually
-        mainStack.spacing = 10
+        mainStack.distribution = .fill
+        mainStack.spacing = 20
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         return mainStack
     }()
+    
+    let mainView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,24 +105,32 @@ class UpdateVehicleViewController: UIViewController {
         resetCancelStackView.addArrangedSubview(cancelButton)
         mainStackView.addArrangedSubview(resetCancelStackView)
         mainStackView.addArrangedSubview(updateButton)
-        view.backgroundColor = .white
-        self.view.addSubview(mainStackView)
+        mainView.backgroundColor = .white
+        view.backgroundColor = .clear
+        self.mainView.addSubview(mainStackView)
+        self.view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+  
   
                 
        updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = self.mainView.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate(
             [mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor ),
-             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,constant: -150),
+             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
              mainStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
              mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
              resetCancelStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
              resetCancelStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
              updateButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-             updateButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+             updateButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+             mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+             mainView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+             mainView.heightAnchor.constraint(equalToConstant: 300),
+             mainView.widthAnchor.constraint(equalToConstant: 500)
             ])
     }
     

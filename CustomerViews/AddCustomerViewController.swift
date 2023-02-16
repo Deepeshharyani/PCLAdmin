@@ -16,6 +16,7 @@ class AddCustomerViewController: UIViewController {
         addDriver.text = "Add Customer"
         addDriver.textAlignment = .center
         addDriver.textColor = UIColor(named: "Maroon")
+        addDriver.font = .preferredFont(forTextStyle: .largeTitle)
         return addDriver
     }()
     
@@ -134,6 +135,7 @@ class AddCustomerViewController: UIViewController {
         return mainStack
     }()
     
+    let mainView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,12 +152,16 @@ class AddCustomerViewController: UIViewController {
         resetCancelStackView.addArrangedSubview(cancelButton)
         mainStackView.addArrangedSubview(resetCancelStackView)
         mainStackView.addArrangedSubview(addButton)
-        self.view.addSubview(mainStackView)
-        view.backgroundColor = .white
+        mainView.backgroundColor = .white
+        view.backgroundColor = .clear
+        self.mainView.addSubview(mainStackView)
+        self.view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = self.mainView.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate(
             [mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -167,7 +173,11 @@ class AddCustomerViewController: UIViewController {
              resetCancelStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
              resetCancelStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
              addButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-             addButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+             addButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+             mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+             mainView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+             mainView.heightAnchor.constraint(equalToConstant: 500),
+             mainView.widthAnchor.constraint(equalToConstant: 500)
             ])
     }
     
