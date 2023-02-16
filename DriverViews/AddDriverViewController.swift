@@ -15,6 +15,7 @@ class AddDriverViewController: UIViewController {
         var addDriver = UILabel()
         addDriver.text = "Add Driver"
         addDriver.textColor = UIColor(named: "Maroon")
+        addDriver.font = .preferredFont(forTextStyle: .largeTitle)
         return addDriver
     }()
     
@@ -94,12 +95,13 @@ class AddDriverViewController: UIViewController {
         var mainStack = UIStackView()
         mainStack.axis = .vertical
         mainStack.alignment = .center
-        mainStack.distribution = .fillEqually
-        mainStack.spacing = 10
+        mainStack.distribution = .fill
+        mainStack.spacing = 20
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         return mainStack
     }()
     
+    let mainView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,17 +115,19 @@ class AddDriverViewController: UIViewController {
         mainStackView.addArrangedSubview(personalDetailStackView)
         mainStackView.addArrangedSubview(resetCancelStackView)
         mainStackView.addArrangedSubview(addButton)
-        view.backgroundColor = .white
-        self.view.addSubview(mainStackView)
-        
+        mainView.backgroundColor = .white
+        view.backgroundColor = .clear
+        self.mainView.addSubview(mainStackView)
+        self.view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = self.mainView.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate(
             [mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,constant: -150),
+             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
              mainStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
              mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
              personalDetailStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -131,7 +135,10 @@ class AddDriverViewController: UIViewController {
              resetCancelStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
              resetCancelStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
              addButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-             addButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+             addButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor), mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+             mainView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+             mainView.heightAnchor.constraint(equalToConstant: 300),
+             mainView.widthAnchor.constraint(equalToConstant: 500)
             ])
         
     }
