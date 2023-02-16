@@ -20,7 +20,6 @@ class UpdateDriverViewController: UIViewController {
         var updateDriver = UILabel()
         updateDriver.text = "Update Driver"
         updateDriver.textColor = UIColor(named: "Maroon")
-        updateDriver.font = .preferredFont(forTextStyle: .largeTitle)
         return updateDriver
     }()
     
@@ -29,7 +28,6 @@ class UpdateDriverViewController: UIViewController {
         firstName.textAlignment = .center
         firstName.placeholder = "Enter First Name"
         firstName.borderStyle = UITextField.BorderStyle.roundedRect
-        firstName.font = .preferredFont(forTextStyle: .title2)
         return firstName
     }()
     
@@ -38,7 +36,6 @@ class UpdateDriverViewController: UIViewController {
         lastName.textAlignment = .center
         lastName.placeholder = "Enter Last Name"
         lastName.borderStyle = UITextField.BorderStyle.roundedRect
-        lastName.font = .preferredFont(forTextStyle: .title2)
         return lastName
     }()
     
@@ -47,7 +44,6 @@ class UpdateDriverViewController: UIViewController {
         phoneNumber.textAlignment = .center
         phoneNumber.placeholder = "Enter Phone Number"
         phoneNumber.borderStyle = UITextField.BorderStyle.roundedRect
-        phoneNumber.font = .preferredFont(forTextStyle: .title2)
         return phoneNumber
     }()
     
@@ -99,13 +95,11 @@ class UpdateDriverViewController: UIViewController {
         var mainStack = UIStackView()
         mainStack.axis = .vertical
         mainStack.alignment = .center
-        mainStack.distribution = .fill
-        mainStack.spacing = 20
+        mainStack.distribution = .fillEqually
+        mainStack.spacing = 10
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         return mainStack
     }()
-
-    let mainView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,21 +113,18 @@ class UpdateDriverViewController: UIViewController {
         mainStackView.addArrangedSubview(personalDetailStackView)
         mainStackView.addArrangedSubview(resetCancelStackView)
         mainStackView.addArrangedSubview(updateButton)
-        mainView.backgroundColor = .white
-        view.backgroundColor = .clear
-        self.mainView.addSubview(mainStackView)
-        self.view.addSubview(mainView)
-        mainView.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        self.view.addSubview(mainStackView)
   
                 
        updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        let safeArea = self.mainView.safeAreaLayoutGuide
+        let safeArea = self.view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate(
             [mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+             mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -250),
              mainStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
              mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
              personalDetailStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -142,11 +133,7 @@ class UpdateDriverViewController: UIViewController {
              resetCancelStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
              updateButton.topAnchor.constraint(equalTo: resetCancelStackView.bottomAnchor, constant: 80),
              updateButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-             updateButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-             mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-             mainView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-             mainView.heightAnchor.constraint(equalToConstant: 300),
-             mainView.widthAnchor.constraint(equalToConstant: 500)
+             updateButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
             ])
         
         
